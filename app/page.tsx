@@ -1,17 +1,14 @@
-export default function Home() {
-  const post = {
-    title: "Post title",
-    author: "JK Rowlin",
-  };
+import { createClient } from "../utils/supabase/browser-client";
 
+export default async function Home() {
+  const supabase = createClient();
+  const { data, error } = await supabase.from("posts").select("*");
+  console.log("data", data, error?.message);
   return (
     <>
-      {post && (
-        <div>
-          <h1>{post.title}</h1>
-          <p>{post.author}</p>
-        </div>
-      )}
+      {data && data.map(item => (
+        <div>{item.title}</div>
+      ))}
     </>
   );
 }

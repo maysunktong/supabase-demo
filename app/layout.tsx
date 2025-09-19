@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header>
+        <header className="flex gap-3">
           <p>Logo</p>
           <nav>
             <Link href="/auth/login">Login</Link>
