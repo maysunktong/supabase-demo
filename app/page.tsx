@@ -12,6 +12,8 @@ export default async function Home() {
   if (!data || data.length === 0) {
     return <p>No posts found.</p>;
   }
+
+  console.log('server', data)
   
   return (
     <>

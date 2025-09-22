@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { QueryClientProvider } from "../providers/query-client-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,13 +29,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="flex gap-3">
-          <p>Logo</p>
-          <nav>
-            <Link href="/auth/login">Login</Link>
-          </nav>
-        </header>
-        {children}
+        <QueryClientProvider>
+          <header className="flex gap-3">
+            <p>Logo</p>
+            <nav>
+              <Link href="/auth/login">Login</Link>
+            </nav>
+          </header>
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );

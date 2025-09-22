@@ -7,7 +7,6 @@ export default async function SinglePost({
 }) {
   const { slug } = params;
   const { data, error } = await getSinglePost(slug);
-  console.log("data", data);
 
   return (
     <>
