@@ -20,7 +20,18 @@ export const getSinglePost = async (slug: string) => {
   return data;
 };
 
+export const getSearchedPosts = async (searchTerm: string) => {
+  const supabase = createClient();
+  return await supabase
+    .from("posts")
+    .select("title, slug, id")
+    /* .textSearch("title", searchTerm) *//* match title with searchTerm */
+    .ilike("title", `${searchTerm}%`); 
+
+    /* can do hybrid search - Google styled */
+};
+
 /* get types from QueryData from @supabase/supabase-js */
 export type HomePostType = QueryData<ReturnType<typeof getHomePosts>>;
 
-export type SinglePostType =QueryData<ReturnType<typeof getSinglePost>>;
+export type SinglePostType = QueryData<ReturnType<typeof getSinglePost>>;

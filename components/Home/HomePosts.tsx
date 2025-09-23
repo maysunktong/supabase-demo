@@ -5,16 +5,17 @@ import { getHomePosts, HomePostType } from "../../utils/supabase/queries";
 import { useQuery } from "@tanstack/react-query";
 
 export default function HomePosts({ posts }: { posts: HomePostType }) {
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["home-posts"],
     queryFn: async () => {
       const { data, error } = await getHomePosts();
-      if (error) throw error;
+      if (error) throw new Error(error.message);
       return data;
     },
     initialData: posts,
     refetchOnMount: false,
-    staleTime: 10000 /* waiting time to refresh data fetching */
+    refetchInterval: 10000,
+    /* staleTime: 10 * 1000 */
   });
 
   console.log("Client", data);
@@ -31,6 +32,7 @@ export default function HomePosts({ posts }: { posts: HomePostType }) {
             {title} by {users?.username}
           </Link>
         ))}
+      {error && <p>Error...</p>}
     </>
   );
 }

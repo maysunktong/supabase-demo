@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { QueryClientProvider } from "../providers/query-client-provider";
+import Search from "../components/Search";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
             <nav>
               <Link href="/auth/login">Login</Link>
             </nav>
+            <Search />
           </header>
           {children}
         </QueryClientProvider>
