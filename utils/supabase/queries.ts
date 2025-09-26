@@ -1,37 +1,36 @@
 import { createClient } from "./browser-client";
 import { QueryData } from "@supabase/supabase-js";
 
-export const getHomePosts = async () => {
-  const supabase = createClient();
-  const data = await supabase
+export const getHomePosts = async (
+  supabase: ReturnType<typeof createClient>
+) => {
+  return await supabase
     .from("posts")
-    .select('id, title, slug, users("username")')
-    .order("created_at", { ascending: true });
-  return data;
+    .select("id, title, slug, users(username, email)")
+    .order("created_at", { ascending: false });
 };
 
 export const getSinglePost = async (slug: string) => {
   const supabase = createClient();
-  const data = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug) /* eq = equal */
-    .single();
-  return data;
-};
-
-export const getSearchedPosts = async (searchTerm: string) => {
-  const supabase = createClient();
   return await supabase
     .from("posts")
-    .select("title, slug, id")
-    /* .textSearch("title", searchTerm) *//* match title with searchTerm */
-    .ilike("title", `${searchTerm}%`); 
-
-    /* can do hybrid search - Google styled */
+    .select("*, users(username)")
+    .eq("slug", slug)
+    .single();
 };
 
-/* get types from QueryData from @supabase/supabase-js */
-export type HomePostType = QueryData<ReturnType<typeof getHomePosts>>;
+export const getSearchedPosts = async (
+  searchTerm: string,
+  signal: AbortSignal
+) => {
+  const supabase = createClient();
 
-export type SinglePostType = QueryData<ReturnType<typeof getSinglePost>>;
+  return await supabase
+    .from("posts")
+    .select("title, slug")
+    .ilike("title", `%${searchTerm}%`)
+    .abortSignal(signal);
+};
+
+export type HomePostsType = QueryData<ReturnType<typeof getHomePosts>>;
+export type SinglePostsType = QueryData<ReturnType<typeof getSinglePost>>;

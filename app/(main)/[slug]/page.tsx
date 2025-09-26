@@ -1,4 +1,4 @@
-import { getSinglePost, SinglePostType } from "../../utils/supabase/queries";
+import { getSinglePost, SinglePostType } from "../../../utils/supabase/queries";
 
 export default async function SinglePost({
   params,

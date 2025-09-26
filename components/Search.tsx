@@ -1,6 +1,6 @@
 "use client";
 import { SetStateAction, useState } from "react";
-import { getHomePosts, getSearchedPosts } from "../utils/supabase/queries";
+import { getSearchedPosts } from "../utils/supabase/queries";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
