@@ -22,7 +22,7 @@ const LogInForm = () => {
             placeholder="Enter your password"
           />
         </fieldset>
-        <button type="button">Log in</button>
+        <button>Log in</button>
       </form>
     </>
   );

@@ -1,4 +1,3 @@
-import  Link  from "next/link";
 import HomePosts from "../../components/Home/HomePosts";
 import Search from "../../components/Search";
 import { createClient } from "../../utils/supabase/browser-client";
@@ -24,7 +23,6 @@ export default async function Home() {
 
   return (
     <>
-      <Link href="/auth/login">Log in</Link>
       <Search />
       <HomePosts posts={data!} />
     </>

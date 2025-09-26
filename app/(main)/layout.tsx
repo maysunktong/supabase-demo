@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import AccountLinks from "../../components/AuthLink";
 
 export default function MainLayout({
   children,
@@ -7,7 +7,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <Header />
+      <AccountLinks />
       {children}
     </>
   );
