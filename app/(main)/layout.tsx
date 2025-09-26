@@ -1,4 +1,4 @@
-import AccountLinks from "../../components/AuthLink";
+import AccountLinks from "../../components/AccountLinks";
 
 export default function MainLayout({
   children,

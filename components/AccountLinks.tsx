@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClientServer } from "../utils/supabase/server-client";
 import LogOutButton from "./LogOut";
+import CreatePostButton from "./CreatePost";
 
 const AccountLinks = async () => {
   const supabase = await createClientServer();
@@ -10,7 +11,14 @@ const AccountLinks = async () => {
   } = await supabase.auth.getUser();
   return (
     <div>
-      {user ? <LogOutButton /> : <Link href="/auth/login">Log in</Link>}
+      {user ? (
+        <>
+          <LogOutButton />
+          <CreatePostButton />
+        </>
+      ) : (
+        <Link href="/auth/login">Log in</Link>
+      )}
     </div>
   );
 };
