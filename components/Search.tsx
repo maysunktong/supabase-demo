@@ -9,8 +9,8 @@ export default function Search() {
 
   const { data } = useQuery({
     queryKey: ["search-results", userInput],
-    queryFn: async () => {
-      const { data, error } = await getSearchedPosts(userInput);
+    queryFn: async ({signal}) => {
+      const { data, error } = await getSearchedPosts(userInput, signal);
       if (error) throw new Error(error.message);
       return data;
     },

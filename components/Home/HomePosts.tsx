@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { getHomePosts, HomePostType } from "../../utils/supabase/queries";
+import { getHomePosts, HomePostsType } from "../../utils/supabase/queries";
 import { useQuery } from "@tanstack/react-query";
 import { createClient } from "../../utils/supabase/browser-client";
 
-export default function HomePosts({ posts }: { posts: HomePostType }) {
+export default function HomePosts({ posts }: { posts: HomePostsType }) {
   const supabase = createClient();
   const { data, error } = useQuery({
     queryKey: ["home-posts"],
@@ -23,18 +23,19 @@ export default function HomePosts({ posts }: { posts: HomePostType }) {
   console.log("Client fetching", data);
 
   return (
-    <>
+    <div className="flex flex-col space-y-2">
       {data &&
         data.map(({ id, title, users, slug }) => (
           <Link
             key={id}
             href={`/${slug}`}
-            className="border border-yellow-500 block"
+            className="block rounded-md border border-yellow-500 p-3 hover:bg-yellow-100"
           >
-            {title} by {users?.username}
+            <div className="font-semibold">{title}</div>
+            <div className="text-sm text-gray-600">by {users?.username}</div>
           </Link>
         ))}
-      {error && <p>Error...</p>}
-    </>
+      {error && <p className="text-red-500">Error...</p>}
+    </div>
   );
 }

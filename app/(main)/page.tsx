@@ -1,7 +1,8 @@
-
-import HomePosts from "../components/Home/HomePosts";
-import { createClient } from "../utils/supabase/browser-client";
-import { getHomePosts } from "../utils/supabase/queries";
+import  Link  from "next/link";
+import HomePosts from "../../components/Home/HomePosts";
+import Search from "../../components/Search";
+import { createClient } from "../../utils/supabase/browser-client";
+import { getHomePosts } from "../../utils/supabase/queries";
 
 export default async function Home() {
   const supabase = createClient();
@@ -23,6 +24,8 @@ export default async function Home() {
 
   return (
     <>
+      <Link href="/auth/login">Log in</Link>
+      <Search />
       <HomePosts posts={data!} />
     </>
   );
