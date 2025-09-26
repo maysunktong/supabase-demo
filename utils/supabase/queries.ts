@@ -14,9 +14,9 @@ export const getSinglePost = async (slug: string) => {
   const supabase = createClient();
   return await supabase
     .from("posts")
-    .select("*, users(username)")
+    .select("*")
     .eq("slug", slug)
-    .single();
+    .single()
 };
 
 export const getSearchedPosts = async (
@@ -28,7 +28,7 @@ export const getSearchedPosts = async (
   return await supabase
     .from("posts")
     .select("title, slug")
-    .ilike("title", `%${searchTerm}%`)
+    .ilike("title", `${searchTerm}%`)
     .abortSignal(signal);
 };
 

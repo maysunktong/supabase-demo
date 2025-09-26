@@ -36,8 +36,8 @@ export default function Search() {
       />
       {data && (
         <div onClick={() => setUserInput("")}>
-          {data.map(({ title, slug, id }) => (
-            <Link key={id} href={`/${slug}`}>
+          {data.map(({ title, slug }) => (
+            <Link key={title} href={`/${slug}`}>
               {title}
             </Link>
           ))}
