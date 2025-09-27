@@ -7,7 +7,7 @@ const CreatePostButton = () => {
     redirect("/createpost");
   };
   return (
-    <button className=" button-tertiary" onClick={handleOnClick}>
+    <button onClick={handleOnClick}>
       Create Post
     </button>
   );
