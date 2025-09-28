@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 const CreatePostButton = () => {
   const handleOnClick = () => {
-    redirect("/createpost");
+    redirect("/create");
   };
   return (
     <button onClick={handleOnClick}>
