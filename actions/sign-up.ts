@@ -28,5 +28,5 @@ export const SignUp = async (userdata: z.infer<typeof signUpSchema>) => {
   if (error) throw new Error(error.message);
 
   revalidatePath("/", "layout");
-  redirect("/confirmation");
+  redirect("/auth/login");
 };
