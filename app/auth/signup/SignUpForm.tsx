@@ -1,33 +1,72 @@
+"use client";
+
 import { SignUp } from "@/actions/sign-up";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { signUpSchema } from "@/actions/schemas";
+import ErrorMessage from "@/components/ErrorMessage";
+import { useMutation } from "@tanstack/react-query";
 
 const SignUpForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: SignUp,
+  });
+
   return (
     <>
-      <form action={SignUp} className="p-4 flex flex-col w-[700px] mx-auto">
+      <form
+        onSubmit={handleSubmit((values) => mutate(values))}
+        className="p-4 flex flex-col w-[700px] mx-auto"
+      >
         <fieldset>
           <label htmlFor="email">Enter your email</label>
-          <input id="email" name="email" placeholder="Enter your email" />
+          <input
+            id="email"
+            placeholder="Enter your email"
+            {...register("email")}
+          />
+          {errors.email?.message && (
+            <ErrorMessage message={errors.email.message} />
+          )}
         </fieldset>
         <fieldset>
           <label htmlFor="username">Username</label>
           <input
             type="username"
             id="username"
-            name="username"
             placeholder="Enter your username"
+            {...register("username")}
           />
+          {errors.username?.message && (
+            <ErrorMessage message={errors.username.message} />
+          )}
         </fieldset>
         <fieldset>
-          <label htmlFor="password">Username</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            name="password"
             placeholder="Enter your password"
+            {...register("password")}
           />
+          {errors.password?.message && (
+            <ErrorMessage message={errors.password.message} />
+          )}
         </fieldset>
-        <button className="button-secondary w-1/2 m-auto">Sign Up</button>
+        <button type="submit">{isPending ? "Signing up..." : "Sign up"}</button>
       </form>
+      {error && error.message !== "NEXT_REDIRECT" && (
+        <ErrorMessage message={error.message} />
+      )}
     </>
   );
 };

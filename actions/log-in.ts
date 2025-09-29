@@ -2,20 +2,22 @@
 
 import { redirect } from "next/navigation";
 import { createClientServer } from "../utils/supabase/server-client";
+import { logInSchema } from "./schemas";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
-export const LogIn = async (formData: FormData) => {
-  const userData = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+export const LogIn = async (userdata: z.infer<typeof logInSchema>) => {
+
+  const parsedData = logInSchema.parse(userdata);
 
   const supabase = await createClientServer();
   const {
-    data: { user },
+    data,
     error,
-  } = await supabase.auth.signInWithPassword(userData);
+  } = await supabase.auth.signInWithPassword(parsedData);
 
-  if (error) throw error;
+  if (error) throw new Error(error.message);
 
-  if (user) redirect("/");
+  revalidatePath("/", "layout");
+  redirect("/create");
 };
