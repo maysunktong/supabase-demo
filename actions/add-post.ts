@@ -35,7 +35,6 @@ const AddPost = async (userdata: z.infer<typeof addPostSchema>) => {
   }
 
   revalidatePath("/", "layout");
-  redirect("/create");
 };
 
 export default AddPost;
