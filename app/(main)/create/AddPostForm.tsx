@@ -4,13 +4,13 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addPostSchema } from "@/actions/schemas";
 import AddPost from "@/actions/add-post";
 import ErrorMessage from "../../../components/ErrorMessage";
+import { toast } from "react-toastify";
 
-const AddPostForm = () => {
+const CreatePostForm = () => {
   const {
     register,
     handleSubmit,
@@ -69,17 +69,8 @@ const AddPostForm = () => {
 
         <button type="submit">{isPending ? "Posting..." : "Add Post"}</button>
       </form>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
     </>
   );
 };
 
-export default AddPostForm;
+export default CreatePostForm;
