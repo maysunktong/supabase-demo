@@ -20,13 +20,13 @@ const AddPostForm = () => {
     resolver: zodResolver(addPostSchema),
   });
 
-  const { mutate, isPending, error } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: AddPost,
     onSuccess: () => {
       toast.success("Post added successfully!");
       reset();
     },
-    onError: (err: any) => {
+    onError: (err) => {
       if (
         err.message ===
         'duplicate key value violates unique constraint "posts_slug_key"'
